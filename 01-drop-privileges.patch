@@ -1,0 +1,13 @@
+Index: cherokee-1.0.8/cherokee.conf.sample.pre
+===================================================================
+--- cherokee-1.0.8.orig/cherokee.conf.sample.pre
++++ cherokee-1.0.8/cherokee.conf.sample.pre
+@@ -18,6 +18,8 @@ server!keepalive_max_requests = 500
+ server!server_tokens = full
+ server!panic_action = %prefix%/bin/cherokee-panic
+ server!pid_file = %localstatedir%/run/cherokee.pid
++server!group = cherokee
++server!user = cherokee
+ 
+ # Default virtual server
+ #

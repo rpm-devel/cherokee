@@ -1,0 +1,8 @@
+/var/log/cherokee/*log {
+    missingok
+    notifempty
+    sharedscripts
+    postrotate
+	/bin/kill -HUP `cat /var/run/cherokee.pid 2>/dev/null` 2> /dev/null || true
+    endscript
+}
