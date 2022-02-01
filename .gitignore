@@ -3,3 +3,5 @@
 ignoredirmessage
 
 
+# ignore commit message
+.gitcommit
