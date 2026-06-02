@@ -1,7 +1,241 @@
-# gitignore created on 11/04/21 at 21:51
+# gitignore created on 06/02/26 at 08:11
 # Disable reminder in prompt
 ignoredirmessage
 
+# ignore .build_failed files
+**/.build_failed*
 
-# ignore commit message
-.gitcommit
+# OS generated files
+
+### Linux ###
+# Backup files left by editors
+*~
+
+# Temporary files left when a process holds an open handle to a deleted file
+.fuse_hidden*
+
+# KDE directory preferences
+.directory
+
+# Linux trash folder which might appear on any partition or disk
+.Trash-*
+
+# NFS stale file handles
+.nfs*
+
+### macOS ###
+.DS_Store
+.DS_Store?
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# iCloud generated files
+*.icloud
+
+### Windows ###
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+
+# Crash dump files
+*.stackdump
+
+# Core dumps (Linux/macOS)
+core
+core.*
+vgcore.*
+
+# Folder config file
+[Dd]esktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+### Editors ###
+# Visual Studio Code
+.vscode/
+!.vscode/extensions.json
+
+# JetBrains IDEs (IntelliJ, GoLand, RustRover, PyCharm, etc.)
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Vim / Neovim
+*.swp
+*.swo
+.netrwhist
+Session.vim
+.vim/
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# Eclipse / generic Java IDEs
+.project
+.classpath
+.factorypath
+.settings/
+
+### AI tool local configs (personal settings, never commit) ###
+# Claude Code
+.claude/settings.local.json
+.claude/*.lock
+
+# Cursor
+.cursor/
+.cursorignore
+.cursorindexingignore
+
+# GitHub Copilot
+.copilot/
+
+# Codeium
+.codeium/
+
+# Tabnine
+.tabnine/
+
+# Aider
+.aider/
+.aider.conf.yml
+.aider.model.settings.yml
+.aiderignore
+
+# General AI assistant local state
+.ai/
+.ai.local/
+
+### Environment and secrets ###
+# Local env overrides — never commit credentials
+.env
+.env.local
+.env.*.local
+
+# Private keys and certificates
+*.pem
+*.key
+*.p12
+*.pfx
+
+### Build artifacts ###
+build/
+dist/
+out/
+
+# Rust
+target/
+
+# C / C++ / compiled objects
+*.o
+*.a
+*.so
+*.dylib
+*.dll
+*.exe
+
+### Dependency directories ###
+# Node
+node_modules/
+
+# Go (vendored deps are sometimes committed intentionally, so gitignore only the cache)
+# vendor/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+.eggs/
+.venv/
+venv/
+env/
+
+### Logs ###
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+### Temporary and cache ###
+tmp/
+.tmp/
+*.tmp
+*.cache
+.cache/
+
+### Test and coverage ###
+coverage/
+.coverage
+*.cover
+*.coverprofile
+htmlcov/
+.nyc_output/
+.pytest_cache/
+.tox/
+
+### Misc — always allow ###
+!*/README*
+!inc/main.bash
+
+### Project-specific patterns ###
+# ignore commit message files
+**/.gitcommit
+
+# ignore backup files
+**/*.bak
+
+# ignore .no_push files
+**/.no_push
+
+# ignore .no_git files
+**/.no_git
+
+# ignore .installed marker files
+**/.installed
+
+# ignore work-in-progress rewrite/refactor scripts
+**/*.rewrite.sh
+**/*.refactor.sh
+
+# ignore local override scripts and configs
+**/*.local.sh
+**/*.local.conf
+**/*.local.yaml
+**/*.local.yml
+
