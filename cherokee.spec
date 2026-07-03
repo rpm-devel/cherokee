@@ -8,9 +8,10 @@ Version:        1.2.104
 Release:        9%{?dist}
 Summary:        Flexible and Fast Webserver
 
-License:        GPLv2
-URL:            http://www.cherokee-project.com/
-Source0:        http://github.com/%{name}/%{srcname}/archive/%{srcname}-%{version}.tar.gz
+License:        GPL-2.0-only
+URL:            https://github.com/cherokee/webserver
+ExclusiveArch:  x86_64 aarch64
+Source0:        https://github.com/cherokee/%{srcname}/archive/refs/tags/v%{version}.tar.gz
 Source1:        %{name}.init
 Source2:        %{name}.logrotate
 Source3:        %{name}.service
@@ -69,12 +70,9 @@ BuildRequires:  python3
 # For spawn-fcgi
 Requires:        spawn-fcgi
 
+Requires(pre):  shadow-utils
 %{?systemd_requires}
-%if 0%{?rhel} >= 8 || 0%{?fedora}
 BuildRequires: systemd-rpm-macros
-%else
-BuildRequires: systemd
-%endif
 
 Provides: webserver
 
@@ -145,11 +143,11 @@ cp %{SOURCE116} doc/media/images/
 # Get rid of rpath
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
-make %{?_smp_mflags}
+%make_build
 
 
 %install
-make install DESTDIR=%{buildroot}
+%make_install
 
 %{__install} -d %{buildroot}%{_sysconfdir}/logrotate.d/
 %{__install} -D -m 0644 pam.d_cherokee %{buildroot}%{_sysconfdir}/pam.d/%{name}
@@ -224,7 +222,8 @@ exit 0
 %attr(-,%{name},%{name}) %{_var}/log/%{name}/error_log
 %attr(-,%{name},%{name}) %{_var}/log/%{name}/access_log
 %attr(-,%{name},%{name}) %dir %{_var}/lib/%{name}/
-%doc AUTHORS COPYING NEWS
+%license COPYING
+%doc AUTHORS NEWS
 %doc %{_datadir}/doc/%{name}
 %doc %{_mandir}/man1/cget.1*
 %doc %{_mandir}/man1/cherokee.1*
@@ -253,6 +252,11 @@ exit 0
 
 
 %changelog
+* Thu Jul 03 2026 CasjaysDev <rpm-devel@casjaysdev.pro> - 1.2.104-9
+- URL: http → https (GitHub); Source0: fix GitHub archive URL to refs/tags format (v1.2.104, verified 302→200)
+- Drop %if rhel >= 8 conditional; always BuildRequires: systemd-rpm-macros (EL8+ only)
+- SPDX: GPLv2 → GPL-2.0-only; ExclusiveArch; Requires(pre): shadow-utils; %%make_build/%%make_install; %%license COPYING
+
 * Fri Apr 24 2026 CasjaysDev <rpm-devel@casjaysdev.pro> - 1.2.104-9
 - Modernize spec for AlmaLinux 10; remove Group, %clean, replace python2 with python3
 - Simplify conditional blocks, target systemd and mariadb-connector-c-devel unconditionally
