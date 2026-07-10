@@ -3,6 +3,22 @@
 %global         opensslversion 1.0.0r
 %global         srcname webserver
 
+%if 0%{?suse_version}
+%global         shadow_pkg        shadow
+%global         openssl_pkg       libopenssl-devel
+%global         geoip_pkg         libGeoIP-devel
+%global         openldap_pkg      openldap2-devel
+%global         mariadb_pkg       libmariadb-devel
+%global         phpcli_pkg        php8-cli
+%else
+%global         shadow_pkg        shadow-utils
+%global         openssl_pkg       openssl-devel
+%global         geoip_pkg         GeoIP-devel
+%global         openldap_pkg      openldap-devel
+%global         mariadb_pkg       mariadb-connector-c-devel
+%global         phpcli_pkg        php-cli
+%endif
+
 Name:           cherokee
 Version:        1.2.104
 Release:        9%{?dist}
@@ -60,17 +76,17 @@ Patch0: 01-drop-privileges.patch
 Patch3: cherokee-openssl-1.1.patch
 
 
-BuildRequires:  pam-devel pcre-devel GeoIP-devel openldap-devel
-BuildRequires:  mariadb-connector-c-devel
-BuildRequires:  openssl-devel
-BuildRequires:  php-cli
+BuildRequires:  pam-devel pcre-devel %{geoip_pkg} %{openldap_pkg}
+BuildRequires:  %{mariadb_pkg}
+BuildRequires:  %{openssl_pkg}
+BuildRequires:  %{phpcli_pkg}
 BuildRequires:  gettext
 BuildRequires:  autoconf libtool automake
 BuildRequires:  python3
 # For spawn-fcgi
 Requires:        spawn-fcgi
 
-Requires(pre):  shadow-utils
+Requires(pre):  %{shadow_pkg}
 %{?systemd_requires}
 BuildRequires: systemd-rpm-macros
 
@@ -252,6 +268,12 @@ exit 0
 
 
 %changelog
+* Sat Jul 05 2026 CasjaysDev <rpm-devel@casjaysdev.pro> - 1.2.104-9
+- Multi-distro pass: guard SUSE vs RHEL/Fedora package names via %if 0%%{?suse_version}
+- pam-devel/pcre-devel unguarded (same on SUSE); GeoIP-devel -> libGeoIP-devel,
+  openldap-devel -> openldap2-devel, mariadb-connector-c-devel -> libmariadb-devel,
+  openssl-devel -> libopenssl-devel, php-cli -> php8-cli, shadow-utils -> shadow (SUSE)
+
 * Thu Jul 03 2026 CasjaysDev <rpm-devel@casjaysdev.pro> - 1.2.104-9
 - URL: http → https (GitHub); Source0: fix GitHub archive URL to refs/tags format (v1.2.104, verified 302→200)
 - Drop %if rhel >= 8 conditional; always BuildRequires: systemd-rpm-macros (EL8+ only)
