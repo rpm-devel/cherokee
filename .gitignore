@@ -155,6 +155,9 @@ build/
 dist/
 out/
 
+# Downloaded upstream sources (fetched by spectool/rpmbuild.sh, never committed)
+v*.tar.gz
+
 # Rust
 target/
 
